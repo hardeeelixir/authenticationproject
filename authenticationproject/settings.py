@@ -17,40 +17,60 @@ import dj_database_url
 
 import psycopg2 as Database
 
+
 # Initialise environment variables
 
+# env = environ.Env()
+# environ.Env.read_env()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+# Load operating system environment variables and then prepare to use them
 env = environ.Env()
-environ.Env.read_env()
+# .env file, should load only in development environment
+if env.bool("DJANGO_READ_DOT_ENV_FILE", default=True):
+    env_file = str(os.path.join(BASE_DIR,".env"))
+    if os.path.exists(env_file):
+        env.read_env(env_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
+
 # SECRET_KEY = 'django-insecure-qwjd+btsb5%ra_p+hky#3bagij26i3!%p%q+y@z#$8(efpi-^_'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don 't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'users.UserForm'
+# AUTH_USER_MODEL = 'users.UserForm'
 
 # Application definition
 
-INSTALLED_APPS = [
+# INSTALLED_APPS = [
+#
+#
+# ]
+
+DEFAULT_APP = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.authapp',
 
 ]
+USER_APP = [
+    'apps.authapp',
+]
+
+INSTALLED_APPS = DEFAULT_APP + USER_APP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -99,6 +119,7 @@ WSGI_APPLICATION = 'authenticationproject.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
+
        'NAME': env('DB_NAME'),
        'USER': env('DB_USER'),
        'PASSWORD': env('DB_PASS'),
