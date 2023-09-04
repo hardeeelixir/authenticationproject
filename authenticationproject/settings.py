@@ -13,8 +13,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+import dj_database_url
+
+import psycopg2 as Database
 
 # Initialise environment variables
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -32,6 +36,8 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+AUTH_USER_MODEL = 'users.UserForm'
 
 # Application definition
 
@@ -79,14 +85,30 @@ WSGI_APPLICATION = 'authenticationproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# DATABASES = {
+#     "default": env.db("DATABASE_URL"),
 
-# Password validation
+# }
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': env('DB_NAME'),
+       'USER': env('DB_USER'),
+       'PASSWORD': env('DB_PASS'),
+       'HOST': 'localhost',
+       'PORT': '5432',
+        # 'default': dj_database_url.config(default='postgres://postgres:root@localhost/authdata')
+   }
+}
+# DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@localhost/authdata')}
+    # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
