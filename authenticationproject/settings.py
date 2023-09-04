@@ -32,6 +32,7 @@ if env.bool("DJANGO_READ_DOT_ENV_FILE", default=True):
     if os.path.exists(env_file):
         env.read_env(env_file)
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 
@@ -123,8 +124,8 @@ DATABASES = {
        'NAME': env('DB_NAME'),
        'USER': env('DB_USER'),
        'PASSWORD': env('DB_PASS'),
-       'HOST': 'localhost',
-       'PORT': '5432',
+       'HOST': env('DB_HOST'),
+       'PORT': env('DB_PORT'),
         # 'default': dj_database_url.config(default='postgres://postgres:root@localhost/authdata')
    }
 }
