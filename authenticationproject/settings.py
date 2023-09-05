@@ -11,22 +11,45 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+import dj_database_url
+
+import psycopg2 as Database
+
+
+# Initialise environment variables
+
+# env = environ.Env()
+# environ.Env.read_env()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+# Load operating system environment variables and then prepare to use them
+env = environ.Env()
+# .env file, should load only in development environment
+if env.bool("DJANGO_READ_DOT_ENV_FILE", default=True):
+    env_file = str(os.path.join(BASE_DIR,".env"))
+    if os.path.exists(env_file):
+        env.read_env(env_file)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qwjd+btsb5%ra_p+hky#3bagij26i3!%p%q+y@z#$8(efpi-^_'
+SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECRET_KEY = 'django-insecure-qwjd+btsb5%ra_p+hky#3bagij26i3!%p%q+y@z#$8(efpi-^_'
+
+# SECURITY WARNING: don 't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# AUTH_USER_MODEL = 'users.UserForm'
 
 # Application definition
 
@@ -38,6 +61,7 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 USER_APPS = [
     'apps.authapp'
@@ -75,19 +99,34 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'authenticationproject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# DATABASES = {
+#     "default": env.db("DATABASE_URL"),
+
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+
+       'NAME': env('DB_NAME'),
+       'USER': env('DB_USER'),
+       'PASSWORD': env('DB_PASS'),
+       'HOST': env('DB_HOST'),
+       'PORT': env('DB_PORT'),
+        # 'default': dj_database_url.config(default='postgres://postgres:root@localhost/authdata')
+   }
 }
-
-
-# Password validation
+# DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@localhost/authdata')}
+    # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -105,7 +144,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -119,11 +157,19 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "staticfiles"
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+# media settings
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
