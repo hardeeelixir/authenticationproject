@@ -18,7 +18,7 @@ class UserForm(UserCreationForm):
     def save(self, commit=True):
         with transaction.atomic():
             user = super().save()
-            user_profile = UserProfile.objects.create(
+                user_profile = UserProfile.objects.create(
                 user=user,
                 bio=self.cleaned_data.get('bio'),
                 profile_picture=self.cleaned_data.get('profile_picture'),
