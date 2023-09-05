@@ -3,4 +3,4 @@ staticfiles
 db.sqlite3
 .env
 migrations
-.__pycache__
+__pycache__
