@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from apps.users.forms import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
+import logging
+
+# logger = logging.getLogger(name=None)
+logger = logging.getLogger(__name__)
 
 
 def signup(request):
@@ -17,6 +21,7 @@ def signup(request):
 
 
 def profile(request):
+    logger.debug("Heyyyyyyyyyyyyyyyyyyyyyyyyyyy")
     return render(request, 'profile.html')
 
 
