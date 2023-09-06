@@ -31,9 +31,7 @@ DEFAULT_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'apps.authapp',
-
+    'django.contrib.staticfiles'
 ]
 
 PROJECT_APPS = [
