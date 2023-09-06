@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 # .env file, should load only in development environment
 if env.bool("DJANGO_READ_DOT_ENV_FILE", default=True):
-    env_file = str(os.path.join(BASE_DIR,".env"))
+    env_file = str(os.path.join(BASE_DIR, ".env"))
     if os.path.exists(env_file):
         env.read_env(env_file)
 
@@ -24,22 +24,23 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# AUTH_USER_MODEL = 'users.UserForm'
-
 # Application definition
-
-
 DEFAULT_APPS = [
-'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.authapp',
+
+]
+
+PROJECT_APPS = [
     'apps.users'
 ]
 
-INSTALLED_APPS = DEFAULT_APPS
+INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
