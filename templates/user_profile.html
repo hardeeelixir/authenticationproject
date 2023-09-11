@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Add any additional meta tags, link to stylesheets, or other head content here -->
+</head>
+<body>
+  <h2>Register</h2>
+  <h3>{{ request.user.username }}</h3>
+
+  <form method="post"    enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">update</button>
+  </form>
+
+</body>
+</html>

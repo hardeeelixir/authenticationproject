@@ -2,17 +2,15 @@
 from django.urls import path
 
 from apps.users import views
+from apps.users.views import UserProfileView, UserUpdateView
 
+app_name = 'users'
 urlpatterns = [
-    path('', views.signup, name='signup'),
-    path('profile', views.profile, name='profile'),
+    # path('signup', views.sign_up, name='signup'),
     path('login', views.login_view, name='login'),
-    path('signup', views.signup, name='signup'),
-    # path('home', views.home, name='home'),
-    # path('cards', views.cards, name='cards'),
-    path('base', views.base, name='base'),
-    path('support', views.support, name='support'),
-    path('support_file', views.support_file, name='support_file'),
-    # path('signin', views.signin,name='signin'),
-    # path('login', views.login,name='login'),
+    path('dashboard', views.dashboard, name='dashboard'),
+    path('profile_data', views.profile_view, name='profile_data'),
+
+    path('update', UserUpdateView.as_view()),
+    path('', views.UserProfileView.as_view()),
 ]
