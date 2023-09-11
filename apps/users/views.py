@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from apps.users.forms import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
+import logging
+
+# logger = logging.getLogger(name=None)
+logger = logging.getLogger(__name__)
 
 
 def signup(request):
@@ -17,6 +21,7 @@ def signup(request):
 
 
 def profile(request):
+    logger.debug("Heyyyyyyyyyyyyyyyyyyyyyyyyyyy")
     return render(request, 'profile.html')
 
 
@@ -27,8 +32,37 @@ def login_view(request):
             # Log the user in
             user = form.get_user()
             login(request, user)
-            return redirect('profile')  # Redirect to the user's profile page
+            return redirect('support_file')  # Redirect to the user's profile page
     else:
         form = AuthenticationForm()
     context = {'form': form}
     return render(request, 'login.html', context)
+
+
+def base(request):
+    return render(request, 'base.html')
+
+
+def home(request):
+    initial_data = {'name': 'Hardee',
+                    'email': 'hardee@gmail.com',
+                    'password': 123}
+    form = UserForm(initial=initial_data)
+    context = {'form': form}
+    return render(request, 'home.html', context)
+
+
+def support(request):
+    user_entries = UserProfile.objects.all()
+    context = {'user_entries': user_entries}
+    return render(request, 'support.html', context)
+
+
+def support_file(request):
+    user_entries = UserProfile.objects.all()
+    context = {'user_entries': user_entries}
+    return render(request, 'support_file.html', context)
+
+
+def cards(request):
+    return render(request, 'cards.html')
