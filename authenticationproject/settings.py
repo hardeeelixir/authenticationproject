@@ -31,9 +31,7 @@ DEFAULT_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'apps.authapp',
-
+    'django.contrib.staticfiles'
 ]
 
 PROJECT_APPS = [
@@ -69,6 +67,62 @@ TEMPLATES = [
         },
     },
 ]
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "standard": {
+            "format": "[%(process)d %(thread)d %(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        }
+    },
+    "handlers": {
+        "logfile": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "app.log"),
+            "maxBytes": 1024 * 1024 * 20,
+            "backupCount": 50,
+            "formatter": "standard",
+        },
+        "console": {
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            # 'level': 'INFO',
+            # 'class': 'logging.StreamHandler',
+            # 'formatter': 'standard'
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "logfile"],
+            "propagate": True,
+            "level": "WARN",
+        },
+        "django.server": {"handlers": ["console", "logfile"], "level": "DEBUG"},
+        # 'django.db.backends': {
+        #     'handlers': ['console', 'logfile'],
+        #     'level': 'DEBUG',
+        #     'propagate': False,
+        # },
+        "main": {
+            "handlers": ["console", "logfile"],
+            "level": "DEBUG",
+        },
+        "apps": {
+            "handlers": ["logfile", "console"],
+            "level": "DEBUG",
+        },
+    },
+}
 
 WSGI_APPLICATION = 'authenticationproject.wsgi.application'
 
