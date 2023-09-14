@@ -31,11 +31,17 @@ DEFAULT_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    "crispy_forms",
+    "crispy_bootstrap4",
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 PROJECT_APPS = [
-    'apps.users'
+    'apps.users',
+    'apps.pms_users',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS
