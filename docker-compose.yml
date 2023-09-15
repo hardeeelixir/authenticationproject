@@ -2,7 +2,10 @@ version: '3'
 
 services:
   django:
-    image: django-docker:0.0.1
-    build: ./
+    build: .
+
     ports:
       - "8000:8000"
+
+  db:
+    image: postgres-15
