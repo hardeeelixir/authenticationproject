@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Add any additional meta tags, link to stylesheets, or other head content here -->
+</head>
+<body>
+  <h2>Register</h2>
+
+ <a class="btn btn-primary" href="#" role="button">Link</a>
+  {% for i in datas %}
+  <h5>Assigned todos are {{ i.todos }}</h5>
+  {% endfor %}
+  {% for i in datas %}
+  <h5>Assigned todos are {{ i.num_of_categories }}</h5>
+  {% endfor %}
+  {% for i in datas %}
+  <h5>Assigned todos are {{ i.category_name }}</h5>
+  {% endfor %}
+
+<div>
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ tasks }}</li>
+      <li class="list-group-item">tasks today</li>
+     <a class="btn btn-primary" href="#" role="button">Add Task</a>
+  </ul>
+</div>
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ events }}</li>
+      <li class="list-group-item">Events today</li>
+     <a class="btn btn-primary" href="#" role="button">Add Task</a>
+  </ul>
+</div>
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ posts }}</li>
+      <li class="list-group-item">Posts today</li>
+     <a class="btn btn-primary" href="#" role="button">Add Task</a>
+  </ul>
+</div>
+</div>
+</body>
+</html>

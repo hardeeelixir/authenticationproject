@@ -22,6 +22,9 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+    @property
+    def email(self):
+        return "%s"%(self.user.email)
     def clean(self):
         if self.phone_number:
             try:
